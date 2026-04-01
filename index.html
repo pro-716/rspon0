@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESPAWN | قاعة الألعاب</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">RESPAWN</div>
+  <div class="logo-sub">قاعة الألعاب</div>
+  <div class="hline"></div>
+</header>
+
+<nav>
+  <button class="nb active" onclick="showSec('home',this)">🏠 الرئيسية</button>
+  <button class="nb" onclick="showSec('tables',this)">🎮 الطاولات</button>
+  <button class="nb" onclick="showSec('menu',this)">🍜 المنيو</button>
+  <button class="nb" onclick="showSec('prices',this)">💰 الأسعار</button>
+  <button class="nb" onclick="showSec('profits',this)">📊 الأرباح</button>
+  <button class="nb" onclick="showSec('timer',this)">⏱ العداد</button>
+  <button class="nb" onclick="showSec('calc',this)">🧮 الحاسبة</button>
+</nav>
+
+<main>
+  <div id="home" class="sec visible">
+    <div style="text-align:center;padding:28px 0 16px;">
+      <h2 style="font-size:clamp(20px,3.5vw,30px);font-weight:900;">أهلاً بك في <span style="color:var(--c)">RESPAWN</span></h2>
+      <p style="font-size:14px;color:var(--ts);margin-top:7px;max-width:400px;margin-inline:auto;line-height:1.8;">منضدة بلياردو · بلي ستيشن · حاسبات · ميوز طعام</p>
+    </div>
+    <div class="hcards">
+      <div class="hcard c1" onclick="gotoTables()"><span class="hicon">🎱</span><h3>المنضدة</h3><p>2 طاولة</p></div>
+      <div class="hcard c2" onclick="gotoTables()"><span class="hicon">🎮</span><h3>بلي ستيشن</h3><p>7 أجهزة</p></div>
+      <div class="hcard c3" onclick="gotoTables()"><span class="hicon">💻</span><h3>حاسبات</h3><p>8 أجهزة</p></div>
+      <div class="hcard c4" onclick="gotoTables()"><span class="hicon">🍜</span><h3>ميوز طعام</h3><p>5 طاولات</p></div>
+    </div>
+  </div>
+
+  <div id="tables" class="sec">
+    <div class="stitle"><span class="d"></span> إدارة الطاولات</div>
+    <div class="sumbar">
+      <div class="sc"><div class="sv" id="s-free" style="color:var(--ts)">0</div><div class="sl">فارغة</div></div>
+      <div class="sc"><div class="sv" id="s-busy" style="color:var(--c)">0</div><div class="sl">مشغولة</div></div>
+      <div class="sc"><div class="sv" id="s-open" style="color:var(--g)">0</div><div class="sl">مفتوح</div></div>
+      <div class="sc"><div class="sv" id="s-done" style="color:var(--pk)">0</div><div class="sl">انتهت</div></div>
+      <div class="sc"><div class="sv" id="s-ord" style="color:var(--am)">0</div><div class="sl">لديها طلبات</div></div>
+    </div>
+    <div id="zones-container" class="zones-wrap"></div>
+  </div>
+
+  <div id="menu" class="sec">
+    <div class="stitle"><span class="d" style="background:var(--am);box-shadow:0 0 7px var(--am)"></span> المنيو</div>
+    <div class="menu-page-grid" id="menu-page-grid"></div>
+  </div>
+
+  <div id="prices" class="sec">
+    <div class="stitle"><span class="d"></span> الأسعار</div>
+    <div class="sub-title">🎱 المنضدة</div>
+    <div class="pgrid">
+      <div class="prccard"><div class="prc-lbl">ساعة</div><div class="prc-amt">4,000</div><div class="prc-unit">دينار</div></div>
+      <div class="prccard pur"><div class="prc-lbl">نصف ساعة</div><div class="prc-amt">2,000</div><div class="prc-unit">دينار</div></div>
+      <div class="prccard pnk"><div class="prc-lbl">ربع ساعة</div><div class="prc-amt">1,000</div><div class="prc-unit">دينار</div></div>
+      <div class="prccard grn"><div class="prc-lbl">مفتوح مفرد / ساعة</div><div class="prc-amt">4,000</div><div class="prc-unit">دينار</div></div>
+      <div class="prccard amb"><div class="prc-lbl">مفتوح زوجي / ساعة</div><div class="prc-amt">8,000</div><div class="prc-unit">دينار</div></div>
+    </div>
+    <div class="sdiv"></div>
+    <div class="sub-title">🎮 بلي ستيشن</div>
+    <div class="pgrid">
+      <div class="prccard pur"><div class="prc-lbl">كيم واحد</div><div class="prc-amt">500</div><div class="prc-unit">دينار</div></div>
+    </div>
+    <div class="sdiv"></div>
+    <div class="sub-title">💻 حاسبات</div>
+    <div class="pgrid">
+      <div class="prccard grn"><div class="prc-lbl">كيم واحد</div><div class="prc-amt">1,000</div><div class="prc-unit">دينار</div></div>
+    </div>
+    <div class="sdiv"></div>
+    <div class="sub-title">🍜 المنيو</div>
+    <div class="pgrid" id="menu-prices-grid"></div>
+  </div>
+
+  <div id="profits" class="sec">
+    <div class="stitle"><span class="d" style="background:var(--g);box-shadow:0 0 7px var(--g)"></span> الأرباح والسجلات</div>
+    <div class="pcards">
+      <div class="pcrd"><div class="pcrd-val" id="p-total" style="color:var(--c)">0</div><div class="pcrd-lbl">إجمالي الأرباح (دينار)</div></div>
+      <div class="pcrd"><div class="pcrd-val" id="p-game" style="color:var(--p)">0</div><div class="pcrd-lbl">أرباح الألعاب</div></div>
+      <div class="pcrd"><div class="pcrd-val" id="p-food" style="color:var(--am)">0</div><div class="pcrd-lbl">أرباح الطعام</div></div>
+      <div class="pcrd"><div class="pcrd-val" id="p-cnt" style="color:var(--pk)">0</div><div class="pcrd-lbl">عدد العمليات</div></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:11px;flex-wrap:wrap;gap:7px;">
+      <span style="font-size:14px;font-weight:700;color:var(--c)">سجل العمليات</span>
+      <button onclick="clearLog()" style="background:rgba(255,0,144,.07);border:1px solid rgba(255,0,144,.2);color:var(--pk);padding:5px 14px;border-radius:5px;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:12px;">مسح السجل</button>
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="log-tbl">
+        <thead><tr><th>الطاولة</th><th>النوع</th><th>التفاصيل</th><th>المبلغ</th><th>الوقت</th></tr></thead>
+        <tbody id="log-body"><tr><td colspan="5" style="text-align:center;color:var(--ts);padding:22px;">لا توجد سجلات بعد</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="timer" class="sec">
+    <div class="stitle"><span class="d" style="background:var(--pk);box-shadow:0 0 7px var(--pk)"></span> عداد الوقت</div>
+    <div class="tgrid2">
+      <div class="tcard">
+        <div class="tcard-title">⏬ وقت محدد — تنازلي</div>
+        <select class="tsel" id="cd-sel" onchange="cdSelChange()">
+          <option value="3600">ساعة</option>
+          <option value="1800">نصف ساعة</option>
+          <option value="900">ربع ساعة</option>
+          <option value="custom">مخصص</option>
+        </select>
+        <div id="cd-custom-wrap" style="display:none;margin-bottom:8px;">
+          <input type="number" id="cd-min" placeholder="دقائق" min="1" max="600" style="width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(0,245,255,.17);border-radius:6px;color:var(--tm);padding:7px 10px;font-family:'Tajawal',sans-serif;font-size:13px;outline:none;"/>
+        </div>
+        <div class="tdisp" id="cd-disp">00:00</div>
+        <div class="tbtns">
+          <button class="tbtn" onclick="cdStart()">▶ ابدأ</button>
+          <button class="tbtn stop" onclick="cdStop()">⏸ إيقاف</button>
+          <button class="tbtn rst" onclick="cdReset()">↺ إعادة</button>
+        </div>
+        <div class="tstatbar">
+          <span><span class="sdot" id="cd-dot"></span><span id="cd-st">متوقف</span></span>
+          <span id="cd-pr" style="color:var(--c);font-size:11px;font-weight:700;"></span>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="tcard-title">⏫ وقت مفتوح — تصاعدي</div>
+        <select class="tsel" id="op-mode">
+          <option value="4000">مفرد — 4,000/ساعة</option>
+          <option value="8000">زوجي — 8,000/ساعة</option>
+        </select>
+        <div class="tdisp grn" id="op-disp">00:00:00</div>
+        <div class="tbtns">
+          <button class="tbtn" style="border-color:rgba(57,255,20,.22);background:rgba(57,255,20,.05);color:var(--g);" onclick="opStart()">▶ ابدأ</button>
+          <button class="tbtn stop" onclick="opStop()">⏸ إيقاف</button>
+          <button class="tbtn rst" onclick="opReset()">↺ إعادة</button>
+        </div>
+        <div class="tstatbar">
+          <span><span class="sdot" id="op-dot"></span><span id="op-st">متوقف</span></span>
+          <span id="op-pr" style="color:var(--g);font-size:11px;font-weight:700;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="calc" class="sec">
+    <div class="stitle"><span class="d" style="background:var(--p);box-shadow:0 0 7px var(--p)"></span> حاسبة الأسعار</div>
+    <div class="calc-wrap">
+      <div class="frow">
+        <div class="fg"><label>نوع الخدمة</label>
+          <select id="ct" onchange="updateCalc()">
+            <option value="table">منضدة</option>
+            <option value="open-s">وقت مفتوح مفرد</option>
+            <option value="open-d">وقت مفتوح زوجي</option>
+            <option value="ps">بلي ستيشن</option>
+            <option value="pc">حاسبات</option>
+          </select>
+        </div>
+        <div class="fg"><label id="cu-lbl">المدة</label>
+          <select id="cu">
+            <option value="3600">ساعة</option>
+            <option value="1800">نصف ساعة</option>
+            <option value="900">ربع ساعة</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label id="cq-lbl">الكمية</label><input type="number" id="cq" value="1" min="1" max="999"/></div>
+        <div class="fg"><label>المجموع</label><div class="total-box" id="ctotal">—</div></div>
+      </div>
+      <button class="calc-btn" onclick="calcNow()">احسب الآن</button>
+      <div class="calc-result" id="calc-res">
+        <div><div class="res-lbl" id="rl"></div><div class="res-det" id="rd"></div></div>
+        <div><div class="res-amt" id="ra">0</div><div class="res-unit">دينار</div></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div class="modal-bg" id="order-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeOrderModal()">✕</button>
+    <div class="modal-title" id="om-title">🍜 طلب</div>
+    <div class="menu-grid" id="om-menu-grid"></div>
+    <div id="om-order-section" style="display:none;">
+      <div class="order-section">
+        <div class="order-section-title">الطلبات المختارة:</div>
+        <div id="om-items"></div>
+      </div>
+      <div class="order-total-row">
+        <div class="ot-lbl">الإجمالي</div>
+        <div><span class="ot-amt" id="om-total">0</span> <span style="font-size:11px;color:var(--ts)">دينار</span></div>
+      </div>
+    </div>
+    <button class="confirm-btn" onclick="confirmOrder()">✓ تأكيد الطلب</button>
+  </div>
+</div>
+
+<div class="modal-bg" id="finish-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeFinishModal()">✕</button>
+    <div class="modal-title">✓ إنهاء الجلسة</div>
+    <div id="fm-summary"></div>
+    <button class="confirm-btn grn-btn" onclick="confirmFinish()">💾 حفظ وإنهاء</button>
+  </div>
+</div>
+
+<footer><span>RESPAWN</span> | قاعة الألعاب | جميع الحقوق محفوظة</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
